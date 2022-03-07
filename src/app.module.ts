@@ -4,13 +4,15 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { HomeModule } from './home/home.module';
 import { PersonModule } from './person/person.module';
+import { FamilyChiefModule } from './family-chief/family-chief.module';
 
 @Module({
   imports: [TypeOrmModule.forRoot({
     autoLoadEntities: true,
   }),
   HomeModule,
-  PersonModule],
+  PersonModule,
+  FamilyChiefModule],
   controllers: [AppController],
   providers: [AppService],
 })
