@@ -1,26 +1,41 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { CreateFamilyChiefDto } from './dto/create-family-chief.dto';
 import { UpdateFamilyChiefDto } from './dto/update-family-chief.dto';
+import { FamilyChief } from './entities/family-chief.entity';
 
 @Injectable()
 export class FamilyChiefService {
-  create(createFamilyChiefDto: CreateFamilyChiefDto) {
-    return 'This action adds a new familyChief';
+  constructor(
+    @InjectRepository(FamilyChief)
+    private FamilyChiefRepository: Repository<FamilyChief>,
+  ) {}
+
+  async create(
+    createFamilyChiefDto: CreateFamilyChiefDto,
+  ): Promise<FamilyChief> {
+    const chief = await this.FamilyChiefRepository.create(createFamilyChiefDto);
+    return await this.FamilyChiefRepository.save(chief);
   }
 
-  findAll() {
-    return `This action returns all familyChief`;
+  async findAll(): Promise<FamilyChief[]> {
+    return await this.FamilyChiefRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} familyChief`;
+  async findOne(id: number): Promise<FamilyChief> {
+    const chief = await this.FamilyChiefRepository.findOne(id);
+    if (!chief) throw new NotFoundException('Jefe Familair no encontrado');
+    return chief;
   }
 
-  update(id: number, updateFamilyChiefDto: UpdateFamilyChiefDto) {
-    return `This action updates a #${id} familyChief`;
+  async update(id: number, updateFamilyChiefDto: UpdateFamilyChiefDto) {
+    const chief = await this.FamilyChiefRepository.findOne(id);
+    this.FamilyChiefRepository.merge(chief, updateFamilyChiefDto);
+    return await this.FamilyChiefRepository.save(chief);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} familyChief`;
+  async remove(id: number) {
+    return await this.FamilyChiefRepository.delete(id);
   }
 }

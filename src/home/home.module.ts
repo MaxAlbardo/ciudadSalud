@@ -7,6 +7,6 @@ import { HomeService } from './home.service';
 @Module({
   imports: [TypeOrmModule.forFeature([Home])],
   controllers: [HomeController],
-  providers: [HomeService]
+  providers: [HomeService],
 })
 export class HomeModule {}

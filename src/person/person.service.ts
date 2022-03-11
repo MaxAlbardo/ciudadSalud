@@ -6,22 +6,21 @@ import { Person } from './entities/person.entity';
 
 @Injectable()
 export class PersonService {
-
   constructor(
     @InjectRepository(Person)
-    private PersonRepository: Repository<Person>
+    private PersonRepository: Repository<Person>,
   ) {}
-  
+
   async findAll(): Promise<Person[]> {
     return await this.PersonRepository.find();
   }
-  
+
   async findOne(id: number): Promise<Person> {
     const person = await this.PersonRepository.findOne(id);
-    if(!person) throw new NotFoundException('Persona no encontrada');
+    if (!person) throw new NotFoundException('Persona no encontrada');
     return person;
   }
-  
+
   async createOne(createPersonDto: CreatePersonDto) {
     const person = await this.PersonRepository.create(createPersonDto);
     return await this.PersonRepository.save(person);
@@ -29,8 +28,8 @@ export class PersonService {
 
   async updatePerson(id: number, updatePersonDto: UpdatePersonDto) {
     const person = await this.PersonRepository.findOne(id);
-    this.PersonRepository.merge(person, updatePersonDto)
-    return this.PersonRepository.save(person);
+    this.PersonRepository.merge(person, updatePersonDto);
+    return await this.PersonRepository.save(person);
   }
 
   async remove(id: number) {

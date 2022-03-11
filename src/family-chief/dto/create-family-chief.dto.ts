@@ -1,15 +1,17 @@
-import { IsString } from "class-validator";
-import { Property } from "../enum/family-chief.enum";
+import { IsEnum, IsNumber, IsString } from 'class-validator';
+import { Home } from 'src/home/entity/home.entity';
+import { Property } from '../enum/family-chief.enum';
 
 export class CreateFamilyChiefDto {
-    @IsString()
-    id: string;
+  @IsString()
+  id: string;
 
-    @IsString()
-    phoneNumber: string;
+  @IsString()
+  numberPhone: string;
 
-    @IsString()
-    property: Property;
+  @IsEnum(Property)
+  property: Property;
 
-    
+  @IsNumber()
+  home: Home;
 }

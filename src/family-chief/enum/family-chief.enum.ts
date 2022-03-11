@@ -1,5 +1,4 @@
 export enum Property {
-    PROPIETARIO='Propietario',
-    ALQUILADO='Alquilado'
-    
+  PROPIETARIO = 'Propietario',
+  ALQUILADO = 'Alquilado',
 }
