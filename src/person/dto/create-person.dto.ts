@@ -1,4 +1,4 @@
-import { IsDate, IsString } from "class-validator";
+import { IsDate, IsDateString, IsEnum, IsString } from "class-validator";
 import { Gender } from "../enum/person.enum";
 
 export class CreatePersonDto {
@@ -11,9 +11,10 @@ export class CreatePersonDto {
     @IsString()
     lastName: string;
 
-    @IsDate()
+    @IsDateString()
     bornDate: Date;
 
     @IsString()
+    @IsEnum(Gender)
     gender: Gender;
 }
