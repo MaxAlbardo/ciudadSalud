@@ -5,7 +5,7 @@ import { Property } from '../enum/family-chief.enum';
 
 export class CreateFamilyChiefDto {
   @IsString()
-  id: Person;
+  id: string;
 
   @IsString()
   numberPhone: string;
