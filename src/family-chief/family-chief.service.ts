@@ -12,9 +12,7 @@ export class FamilyChiefService {
     private FamilyChiefRepository: Repository<FamilyChief>,
   ) {}
 
-  async create(
-    createFamilyChiefDto: CreateFamilyChiefDto,
-  ): Promise<FamilyChief> {
+  async create(createFamilyChiefDto: CreateFamilyChiefDto) {
     const chief = await this.FamilyChiefRepository.create(createFamilyChiefDto);
     return await this.FamilyChiefRepository.save(chief);
   }

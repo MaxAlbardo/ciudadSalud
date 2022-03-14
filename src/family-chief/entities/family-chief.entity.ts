@@ -12,8 +12,8 @@ import { Property } from '../enum/family-chief.enum';
 
 @Entity()
 export class FamilyChief {
-  @PrimaryColumn({ unique: true })
-  id: string;
+  @PrimaryColumn()
+  id: Person;
 
   @Column()
   numberPhone: string;

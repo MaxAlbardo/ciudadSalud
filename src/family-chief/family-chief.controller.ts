@@ -13,12 +13,14 @@ import {
 import { FamilyChiefService } from './family-chief.service';
 import { CreateFamilyChiefDto } from './dto/create-family-chief.dto';
 import { UpdateFamilyChiefDto } from './dto/update-family-chief.dto';
+import { ApiResponse } from '@nestjs/swagger';
 
 @Controller('family-chief')
 export class FamilyChiefController {
   constructor(private readonly familyChiefService: FamilyChiefService) {}
 
   @Post()
+  // @ApiResponse({ status: 403, description: 'pito'})
   create(@Res() Res, @Body() createFamilyChiefDto: CreateFamilyChiefDto) {
     this.familyChiefService
       .create(createFamilyChiefDto)

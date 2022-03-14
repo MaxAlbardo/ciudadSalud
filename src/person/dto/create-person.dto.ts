@@ -1,21 +1,22 @@
-import { IsDate, IsString } from "class-validator";
-import { Gender } from "../enum/person.enum";
+import { IsDateString, IsEnum, IsString } from 'class-validator';
+import { Gender } from '../enum/person.enum';
 
 export class CreatePersonDto {
-    id?: number;
+  id?: string;
 
-    @IsString()
-    dni: string;
+  @IsString()
+  dni: string;
 
-    @IsString()
-    name: string;
+  @IsString()
+  name: string;
 
-    @IsString()
-    lastName: string;
+  @IsString()
+  lastName: string;
 
-    @IsDate()
-    bornDate: Date;
+  @IsDateString()
+  bornDate: Date;
 
-    @IsString()
-    gender: Gender;
+  @IsString()
+  @IsEnum(Gender)
+  gender: Gender;
 }

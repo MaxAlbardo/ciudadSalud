@@ -10,7 +10,7 @@ import { Gender } from '../enum/person.enum';
 @Entity()
 export class Person {
   @PrimaryColumn()
-  id: number;
+  id: string;
 
   @Column({ unique: true })
   dni: string;
@@ -33,6 +33,6 @@ export class Person {
     if (!this.dni) {
       return;
     }
-    this.id = await parseInt(this.dni);
+    this.id = await this.dni;
   }
 }
