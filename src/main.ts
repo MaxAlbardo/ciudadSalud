@@ -7,6 +7,7 @@ import {
   ValidationError,
   ValidationPipe,
 } from '@nestjs/common';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, { cors: true });
@@ -31,6 +32,17 @@ async function bootstrap() {
       },
     }),
   );
+  const options = new DocumentBuilder()
+    .setTitle('Ciudad Salud')
+    .setDescription('Documentacion de la api')
+    .setVersion('1.0')
+    .addTag('persons')
+    .build();
+
+  const document = SwaggerModule.createDocument(app, options);
+
+  SwaggerModule.setup('/docs', app, document);
+
   await app.listen(process.env.SERVER_PORT);
   console.info(`Server run on port: ${process.env.SERVER_PORT}`);
 }
