@@ -12,7 +12,9 @@ import {
 } from '@nestjs/common';
 import { PersonService } from './person.service';
 import { CreatePersonDto, UpdatePersonDto } from './dto';
+import { ApiBody, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Person')
 @Controller('person')
 export class PersonController {
   constructor(private readonly personService: PersonService) {}
@@ -28,6 +30,7 @@ export class PersonController {
   }
 
   @Post()
+  @ApiBody({ type: [CreatePersonDto] })
   create(@Res() Res, @Body() createPersonDto: CreatePersonDto) {
     this.personService
       .createOne(createPersonDto)
@@ -40,6 +43,7 @@ export class PersonController {
   }
 
   @Put(':id')
+  @ApiBody({ type: [CreatePersonDto] })
   update(
     @Res() Res,
     @Param('id') id: string,

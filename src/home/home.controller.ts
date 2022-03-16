@@ -9,11 +9,13 @@ import {
   Put,
   Res,
 } from '@nestjs/common';
+import { ApiBody, ApiTags } from '@nestjs/swagger';
 import { createHomeDto } from './dto/create-home.dto';
 import { UpdateHomeDto } from './dto/update-home.dto';
 import { Home } from './entity/home.entity';
 import { HomeService } from './home.service';
 
+@ApiTags('Home')
 @Controller('home')
 export class HomeController {
   constructor(private HomeService: HomeService) {}
@@ -29,6 +31,7 @@ export class HomeController {
   }
 
   @Post()
+  @ApiBody({ type: [createHomeDto] })
   createHome(@Res() Res, @Body() createHomeDto: createHomeDto) {
     this.HomeService.createOne(createHomeDto)
       .then((home) => {
@@ -40,6 +43,7 @@ export class HomeController {
   }
 
   @Put(':id')
+  @ApiBody({ type: [createHomeDto] })
   updateHome(
     @Param() id: string,
     @Res() Res,

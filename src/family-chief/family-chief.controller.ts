@@ -13,14 +13,15 @@ import {
 import { FamilyChiefService } from './family-chief.service';
 import { CreateFamilyChiefDto } from './dto/create-family-chief.dto';
 import { UpdateFamilyChiefDto } from './dto/update-family-chief.dto';
-import { ApiResponse } from '@nestjs/swagger';
+import { ApiBody, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Family Chief')
 @Controller('family-chief')
 export class FamilyChiefController {
   constructor(private readonly familyChiefService: FamilyChiefService) {}
 
   @Post()
-  // @ApiResponse({ status: 403, description: 'pito'})
+  @ApiBody({ type: [CreateFamilyChiefDto] })
   create(@Res() Res, @Body() createFamilyChiefDto: CreateFamilyChiefDto) {
     this.familyChiefService
       .create(createFamilyChiefDto)
@@ -43,6 +44,7 @@ export class FamilyChiefController {
   }
 
   @Put(':id')
+  @ApiBody({ type: [CreateFamilyChiefDto] })
   update(
     @Param('id') id: string,
     @Body() updateFamilyChiefDto: UpdateFamilyChiefDto,

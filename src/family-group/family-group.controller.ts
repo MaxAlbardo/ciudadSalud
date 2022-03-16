@@ -8,16 +8,20 @@ import {
   Delete,
   Res,
   HttpStatus,
+  Put,
 } from '@nestjs/common';
 import { FamilyGroupService } from './family-group.service';
 import { CreateFamilyGroupDto } from './dto/create-family-group.dto';
 import { UpdateFamilyGroupDto } from './dto/update-family-group.dto';
+import { ApiBody, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Family Group')
 @Controller('family-group')
 export class FamilyGroupController {
   constructor(private readonly familyGroupService: FamilyGroupService) {}
 
   @Post()
+  @ApiBody({ type: [CreateFamilyGroupDto] })
   create(@Res() Res, @Body() createFamilyGroupDto: CreateFamilyGroupDto) {
     this.familyGroupService
       .create(createFamilyGroupDto)
@@ -44,7 +48,8 @@ export class FamilyGroupController {
     return this.familyGroupService.findGroup(+id);
   }
 
-  @Patch(':id')
+  @Put(':id')
+  @ApiBody({ type: [CreateFamilyGroupDto] })
   update(
     @Param('id') id: string,
     @Body() updateFamilyGroupDto: UpdateFamilyGroupDto,

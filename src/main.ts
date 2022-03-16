@@ -36,7 +36,6 @@ async function bootstrap() {
     .setTitle('Ciudad Salud')
     .setDescription('Documentacion de la api')
     .setVersion('1.0')
-    .addTag('persons')
     .build();
 
   const document = SwaggerModule.createDocument(app, options);
