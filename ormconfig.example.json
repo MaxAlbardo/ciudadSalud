@@ -4,7 +4,7 @@
     "port": 5432,
     "username": "usuario",
     "password": "unaClaveSegura",
-    "database": "ciudadSalud",
+    "database": "ciudadsalud",
     "entities": ["dist/**/*.entity{.ts,.js}"],
     "synchronize": true
 }
