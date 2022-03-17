@@ -14,8 +14,10 @@ import { FamilyChiefService } from './family-chief.service';
 import { CreateFamilyChiefDto } from './dto/create-family-chief.dto';
 import { UpdateFamilyChiefDto } from './dto/update-family-chief.dto';
 import { ApiBody, ApiTags } from '@nestjs/swagger';
+import { Auth } from 'src/common/decorators';
 
 @ApiTags('Family Chief')
+@Auth()
 @Controller('family-chief')
 export class FamilyChiefController {
   constructor(private readonly familyChiefService: FamilyChiefService) {}

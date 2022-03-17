@@ -10,12 +10,14 @@ import {
   Res,
 } from '@nestjs/common';
 import { ApiBody, ApiTags } from '@nestjs/swagger';
+import { Auth } from 'src/common/decorators';
 import { createHomeDto } from './dto/create-home.dto';
 import { UpdateHomeDto } from './dto/update-home.dto';
 import { Home } from './entity/home.entity';
 import { HomeService } from './home.service';
 
 @ApiTags('Home')
+@Auth()
 @Controller('home')
 export class HomeController {
   constructor(private HomeService: HomeService) {}

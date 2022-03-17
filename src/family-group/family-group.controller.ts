@@ -14,8 +14,10 @@ import { FamilyGroupService } from './family-group.service';
 import { CreateFamilyGroupDto } from './dto/create-family-group.dto';
 import { UpdateFamilyGroupDto } from './dto/update-family-group.dto';
 import { ApiBody, ApiTags } from '@nestjs/swagger';
+import { Auth } from 'src/common/decorators';
 
 @ApiTags('Family Group')
+@Auth()
 @Controller('family-group')
 export class FamilyGroupController {
   constructor(private readonly familyGroupService: FamilyGroupService) {}

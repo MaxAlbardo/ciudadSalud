@@ -1,6 +1,6 @@
 import { Controller, Post, Get, UseGuards, Body } from '@nestjs/common';
 import { LocalAuthGuard } from './guards';
-import { User } from 'src/common/decorators';
+import { Auth, User } from 'src/common/decorators';
 import { User as UserEntity } from 'src/user/entities';
 import { AuthService } from './auth.service';
 import { ApiBody, ApiTags } from '@nestjs/swagger';
@@ -22,6 +22,7 @@ export class AuthController {
     };
   }
 
+  @Auth()
   @Get('profile')
   profile(@User() user: UserEntity) {
     return {
@@ -30,6 +31,7 @@ export class AuthController {
     };
   }
 
+  @Auth()
   @Get('refresh')
   refreshToken(@User() user: UserEntity) {
     const data = this.authService.login(user);
