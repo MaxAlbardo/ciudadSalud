@@ -1,4 +1,4 @@
-import { Controller, Post, Get, UseGuards, Body } from '@nestjs/common';
+import { Controller, Post, Get, UseGuards, Body, Req, Request } from '@nestjs/common';
 import { LocalAuthGuard } from './guards';
 import { Auth, User } from 'src/common/decorators';
 import { User as UserEntity } from 'src/user/entities';
@@ -38,6 +38,18 @@ export class AuthController {
     return {
       message: 'Refresh exitoso',
       data,
+    };
+  }
+
+  @Auth()
+  @Post('loguot')
+  logout(@Request() Req) {
+    Req.logout();
+    return {
+      message: 'Logout successful',
+      data: {
+        accessToken: '',
+      },
     };
   }
 }
