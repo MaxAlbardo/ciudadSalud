@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, HttpStatus, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateFamilyChiefDto } from './dto/create-family-chief.dto';
@@ -34,6 +34,10 @@ export class FamilyChiefService {
   }
 
   async remove(id: number) {
-    return await this.FamilyChiefRepository.delete(id);
+    const res = await this.FamilyChiefRepository.delete(+id);
+    if (res.affected == 0) {
+      throw new BadRequestException('Jefe Familiar no encontrado');
+    }
+    return res;
   }
 }

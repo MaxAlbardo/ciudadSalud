@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { group } from 'console';
 import { Repository } from 'typeorm';
@@ -42,6 +42,10 @@ export class FamilyGroupService {
   }
 
   async remove(id: number) {
-    return await this.GroupRepo.delete(id);
+    const res = await this.GroupRepo.delete(id);
+    if (res.affected == 0) {
+      throw new BadRequestException('Familiar no encontrado'); 
+    }
+    return res;
   }
 }

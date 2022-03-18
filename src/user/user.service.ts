@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -40,7 +40,11 @@ export class UserService {
   }
 
   async remove(id: number) {
-    return await this.userRepo.delete(id);
+    const res = await this.userRepo.delete(id);
+    if (res.affected == 0) {
+      throw new BadRequestException('Usuario no encontrado');
+    }
+    return res;
   }
 
   async findByEmail(data: UserFindByEmail) {
