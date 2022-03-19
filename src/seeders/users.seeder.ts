@@ -27,10 +27,12 @@ export class UsersSeeder implements Seeder {
         email: 'admin@ciudadsalud.com',
         password: '1234567890',
       };
+      const person = this.personRepository.create(UserDto);
+      await this.personRepository.save(person);
       const user: User = this.userRepository.create(UserDto);
-      user.person = this.personRepository.create(UserDto);
+      user.id = UserDto.dni;
 
-      return await this.personRepository.save(user);
+      return await this.userRepository.save(user);
     } catch (exception: any) {
       console.log('Crear usuario: ', exception.message);
     }

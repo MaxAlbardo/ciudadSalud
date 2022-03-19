@@ -9,7 +9,6 @@ import { FamilyGroupModule } from './family-group/family-group.module';
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
-import { SeedersModule } from './seeders/seeders.module';
 
 @Module({
   imports: [
@@ -26,7 +25,6 @@ import { SeedersModule } from './seeders/seeders.module';
     FamilyGroupModule,
     UserModule,
     AuthModule,
-    SeedersModule,
   ],
   controllers: [AppController],
   providers: [AppService],
