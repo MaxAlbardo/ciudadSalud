@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreatePersonDto, UpdatePersonDto } from './dto';
@@ -33,6 +33,10 @@ export class PersonService {
   }
 
   async remove(id: number) {
-    return await this.PersonRepository.delete(id);
+    const res = await this.PersonRepository.delete(id);
+    if (res.affected == 0) {
+      throw new BadRequestException('Persona no encontrada');
+    }
+    return res;
   }
 }

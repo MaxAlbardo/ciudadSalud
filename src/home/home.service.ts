@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { createHomeDto } from './dto/create-home.dto';
@@ -33,7 +33,11 @@ export class HomeService {
     return await this.homeRepository.save(home);
   }
 
-  async deleteHome(id: string): Promise<void> {
-    await this.homeRepository.delete(id);
+  async deleteHome(id: string) {
+    const res = await this.homeRepository.delete(id);
+    if (res.affected == 0) {
+      throw new BadRequestException('Casa no encontrada');
+    }
+    return res;
   }
 }

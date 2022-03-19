@@ -13,8 +13,10 @@ import {
 import { PersonService } from './person.service';
 import { CreatePersonDto, UpdatePersonDto } from './dto';
 import { ApiBody, ApiTags } from '@nestjs/swagger';
+import { Auth } from 'src/common/decorators';
 
 @ApiTags('Person')
+@Auth()
 @Controller('person')
 export class PersonController {
   constructor(private readonly personService: PersonService) {}
