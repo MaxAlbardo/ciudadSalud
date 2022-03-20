@@ -16,8 +16,10 @@ export class HomeService {
     return await this.homeRepository.find();
   }
 
-  async findOne(id): Promise<Home> {
-    const home = await this.homeRepository.findOne(id);
+  async findOne(id: string): Promise<Home> {
+    const home = await this.homeRepository.findOne(id, {
+      join: { alias: 'i', leftJoinAndSelect: { familyChief: 'i.familyChief' }}
+    });
     if (!home) throw new NotFoundException('Home not found');
     return home;
   }
