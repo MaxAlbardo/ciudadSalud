@@ -30,7 +30,7 @@ export class UsersSeeder implements Seeder {
       const person = this.personRepository.create(UserDto);
       await this.personRepository.save(person);
       const user: User = this.userRepository.create(UserDto);
-      user.id = UserDto.dni;
+      user.id = person.id;
 
       return await this.userRepository.save(user);
     } catch (exception: any) {
