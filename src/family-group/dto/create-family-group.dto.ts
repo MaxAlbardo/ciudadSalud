@@ -4,7 +4,7 @@ import { relationShipEnum } from '../enum/family-group.enum';
 
 export class CreateFamilyGroupDto {
   @IsString()
-  id: string;
+  personId: string;
 
   @IsEnum(relationShipEnum)
   relationship: relationShipEnum;

@@ -8,13 +8,13 @@ import {
   ManyToOne,
   OneToMany,
   OneToOne,
-  PrimaryColumn,
+  PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Property } from '../enum/family-chief.enum';
 
 @Entity()
 export class FamilyChief {
-  @PrimaryColumn()
+  @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column()
@@ -24,7 +24,7 @@ export class FamilyChief {
   property: Property;
 
   @OneToOne(() => Person, { eager: true })
-  @JoinColumn({ name: 'id' })
+  @JoinColumn({ name: 'PersonId' })
   person: Person;
 
   @ManyToOne(() => Home, (home) => home.familyChief, { eager: true })

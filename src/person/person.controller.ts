@@ -23,7 +23,7 @@ export class PersonController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.personService.findOne(+id);
+    return this.personService.personDNI(id);
   }
 
   @Get()
@@ -52,7 +52,7 @@ export class PersonController {
     @Body() updatePersonDto: UpdatePersonDto,
   ) {
     this.personService
-      .updatePerson(+id, updatePersonDto)
+      .updatePerson(id, updatePersonDto)
       .then((person) => {
         return Res.status(HttpStatus.ACCEPTED).json(person);
       })

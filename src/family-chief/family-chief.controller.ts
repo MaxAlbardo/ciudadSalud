@@ -42,7 +42,7 @@ export class FamilyChiefController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.familyChiefService.findOne(+id);
+    return this.familyChiefService.findOne(id);
   }
 
   @Put(':id')
@@ -51,11 +51,11 @@ export class FamilyChiefController {
     @Param('id') id: string,
     @Body() updateFamilyChiefDto: UpdateFamilyChiefDto,
   ) {
-    return this.familyChiefService.update(+id, updateFamilyChiefDto);
+    return this.familyChiefService.update(id, updateFamilyChiefDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.familyChiefService.remove(+id);
+    return this.familyChiefService.remove(id);
   }
 }

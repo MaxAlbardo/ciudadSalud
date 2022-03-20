@@ -8,11 +8,12 @@ import {
   JoinColumn,
   OneToOne,
   PrimaryColumn,
+  PrimaryGeneratedColumn,
 } from 'typeorm';
 
 @Entity()
 export class User {
-  @PrimaryColumn()
+  @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column()
@@ -22,7 +23,7 @@ export class User {
   password: string;
 
   @OneToOne(() => Person, { eager: true })
-  @JoinColumn({ name: 'id' })
+  @JoinColumn({ name: 'personId' })
   person: Person;
 
   @BeforeInsert()

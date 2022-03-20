@@ -6,22 +6,22 @@ import {
   JoinColumn,
   ManyToOne,
   OneToOne,
-  PrimaryColumn,
+  PrimaryGeneratedColumn,
 } from 'typeorm';
 import { relationShipEnum } from '../enum/family-group.enum';
 
 @Entity()
 export class FamilyGroup {
-  @PrimaryColumn()
+  @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column({ type: 'varchar' })
   relationship: relationShipEnum;
 
   @OneToOne(() => Person, { eager: true })
-  @JoinColumn({ name: 'id' })
+  @JoinColumn({ name: 'personId' })
   person: Person;
 
-  @ManyToOne(() => FamilyChief, (chief) => chief.group)
+  @ManyToOne(() => FamilyChief, (chief) => chief.group, { eager: true })
   chief: FamilyChief;
 }
