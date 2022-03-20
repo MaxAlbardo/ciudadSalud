@@ -47,17 +47,7 @@ export class FamilyChiefService {
   }
 
   async remove(id: string) {
-    const chief = await this.FamilyChiefRepository.findOne({
-      relations: ['person'],
-      where: {
-        person: {
-          dni: id,
-        },
-      },
-    });
-    if (!chief) {
-      throw new BadRequestException('Jefe Familiar no encontrado');
-    }
+    const chief = await this.findOne(id);
     const res = await this.FamilyChiefRepository.delete(chief.id);
     return res;
   }

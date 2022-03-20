@@ -73,17 +73,7 @@ export class FamilyGroupService {
   }
 
   async remove(id: number) {
-    const group = await this.GroupRepo.findOne({
-      relations: ['person'],
-      where: {
-        person: {
-          dni: id,
-        },
-      },
-    });
-    if (!group) {
-      throw new BadRequestException('Familiar no encontrado');
-    }
+    const group = await this.findOne(id);
     const res = await this.GroupRepo.delete(group.id);
     return res;
   }
