@@ -8,13 +8,13 @@ import {
   ManyToOne,
   OneToMany,
   OneToOne,
-  PrimaryColumn,
+  PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Property } from '../enum/family-chief.enum';
 
 @Entity()
 export class FamilyChief {
-  @PrimaryColumn()
+  @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column()

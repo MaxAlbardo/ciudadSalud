@@ -4,7 +4,7 @@ import Square from '../enum/home.enum';
 
 @Entity()
 export class Home {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column()

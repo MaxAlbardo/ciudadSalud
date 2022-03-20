@@ -1,15 +1,13 @@
 import {
-  BeforeInsert,
-  BeforeUpdate,
   Column,
   Entity,
-  PrimaryColumn,
+  PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Gender } from '../enum/person.enum';
 
 @Entity()
 export class Person {
-  @PrimaryColumn()
+  @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column({ unique: true })
@@ -26,13 +24,4 @@ export class Person {
 
   @Column()
   gender: Gender;
-
-  @BeforeInsert()
-  @BeforeUpdate()
-  async setId() {
-    if (!this.dni) {
-      return;
-    }
-    this.id = await this.dni;
-  }
 }
