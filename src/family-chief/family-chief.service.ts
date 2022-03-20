@@ -1,11 +1,5 @@
-import {
-  BadRequestException,
-  HttpStatus,
-  Injectable,
-  NotFoundException,
-} from '@nestjs/common';
+import { BadRequestException, HttpStatus, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Person } from 'src/person/entities/person.entity';
 import { PersonService } from 'src/person/person.service';
 import { Repository } from 'typeorm';
 import { CreateFamilyChiefDto } from './dto/create-family-chief.dto';
@@ -22,8 +16,8 @@ export class FamilyChiefService {
 
   async create(createFamilyChiefDto: CreateFamilyChiefDto) {
     const chief = await this.FamilyChiefRepository.create(createFamilyChiefDto);
-    const person = await this.personService.personDNI(createFamilyChiefDto.id);
-    chief.id = person.id;
+    const person = await this.personService.personDNI(createFamilyChiefDto.personId);
+    chief.person = person;
     return await this.FamilyChiefRepository.save(chief);
   }
 
@@ -45,15 +39,10 @@ export class FamilyChiefService {
   }
 
   async update(id: string, updateFamilyChiefDto: UpdateFamilyChiefDto) {
-    const chief = await this.FamilyChiefRepository.findOne({
-      relations: ['person'],
-      where: {
-        person: {
-          dni: id,
-        },
-      },
-    });
+    const chief = await this.findOne(id);
+    const person = await this.personService.personDNI(updateFamilyChiefDto.personId);
     this.FamilyChiefRepository.merge(chief, updateFamilyChiefDto);
+    chief.person = person;
     return await this.FamilyChiefRepository.save(chief);
   }
 
@@ -66,10 +55,10 @@ export class FamilyChiefService {
         },
       },
     });
-    const res = await this.FamilyChiefRepository.delete(chief.id);
-    if (res.affected == 0) {
+    if (!chief) {
       throw new BadRequestException('Jefe Familiar no encontrado');
     }
+    const res = await this.FamilyChiefRepository.delete(chief.id);
     return res;
   }
 
@@ -82,6 +71,7 @@ export class FamilyChiefService {
         },
       },
     });
+    if (!chief) throw new NotFoundException('Jefe Familair no encontrado');
     return chief;
   }
 }

@@ -24,7 +24,7 @@ export class FamilyChief {
   property: Property;
 
   @OneToOne(() => Person, { eager: true })
-  @JoinColumn({ name: 'id' })
+  @JoinColumn({ name: 'PersonId' })
   person: Person;
 
   @ManyToOne(() => Home, (home) => home.familyChief, { eager: true })

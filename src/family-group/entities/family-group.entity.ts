@@ -19,7 +19,7 @@ export class FamilyGroup {
   relationship: relationShipEnum;
 
   @OneToOne(() => Person, { eager: true })
-  @JoinColumn({ name: 'id' })
+  @JoinColumn({ name: 'personId' })
   person: Person;
 
   @ManyToOne(() => FamilyChief, (chief) => chief.group, { eager: true })

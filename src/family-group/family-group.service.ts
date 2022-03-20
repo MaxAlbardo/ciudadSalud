@@ -22,9 +22,9 @@ export class FamilyGroupService {
 
   async create(createFamilyGroupDto: CreateFamilyGroupDto) {
     const group = await this.GroupRepo.create(createFamilyGroupDto);
-    const person = await this.personService.personDNI(createFamilyGroupDto.id);
+    const person = await this.personService.personDNI(createFamilyGroupDto.personId);
     const chief = await this.chiefService.findChief(createFamilyGroupDto.chief);
-    group.id = person.id;
+    group.person = person;
     group.chief = chief;
     return await this.GroupRepo.save(group);
   }
@@ -63,11 +63,13 @@ export class FamilyGroupService {
   }
 
   async update(id: number, updateFamilyGroupDto: UpdateFamilyGroupDto) {
-    const group = await this.GroupRepo.findOne(id);
+    const group = await this.findOne(id);
+    const person = await this.personService.personDNI(updateFamilyGroupDto.personId);
     const chief = await this.chiefService.findChief(updateFamilyGroupDto.chief);
     this.GroupRepo.merge(group, updateFamilyGroupDto);
+    group.person = person;
     group.chief = chief;
-    return this.GroupRepo.save(group);
+    return await this.GroupRepo.save(group);
   }
 
   async remove(id: number) {
@@ -79,10 +81,10 @@ export class FamilyGroupService {
         },
       },
     });
-    const res = await this.GroupRepo.delete(group.id);
-    if (res.affected == 0) {
+    if (!group) {
       throw new BadRequestException('Familiar no encontrado');
     }
+    const res = await this.GroupRepo.delete(group.id);
     return res;
   }
 }
