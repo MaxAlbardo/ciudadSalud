@@ -1,18 +1,18 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsEnum, IsNumber, IsString } from 'class-validator';
+import { IsEnum, IsInt, IsString } from 'class-validator';
 import Square from '../enum/home.enum';
 
 export class createHomeDto {
-  @IsNumber()
+  @IsInt()
   n_rooms: number;
 
-  @IsNumber()
+  @IsInt()
   n_population: number;
 
-  @IsNumber()
+  @IsInt()
   n_bathrooms: number;
 
-  @IsNumber()
+  @IsInt()
   n_home: number;
 
   @IsString()
