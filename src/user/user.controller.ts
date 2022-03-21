@@ -42,7 +42,7 @@ export class UserController {
   @Auth()
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.userService.findOne(+id);
+    return this.userService.findOne(id);
   }
 
   @Auth()
@@ -54,7 +54,7 @@ export class UserController {
     @Body() updateUserDto: UpdateUserDto,
   ) {
     this.userService
-      .update(+id, updateUserDto)
+      .update(id, updateUserDto)
       .then((user) => {
         return Res.status(HttpStatus.ACCEPTED).json(user);
       })
@@ -66,6 +66,6 @@ export class UserController {
   @Auth()
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.userService.remove(+id);
+    return this.userService.remove(id);
   }
 }

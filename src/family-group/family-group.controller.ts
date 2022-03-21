@@ -42,12 +42,12 @@ export class FamilyGroupController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.familyGroupService.findOne(+id);
+    return this.familyGroupService.findOne(id);
   }
 
   @Get('/chief/:id')
   findGroup(@Param('id') id: string) {
-    return this.familyGroupService.findGroup(+id);
+    return this.familyGroupService.findGroup(id);
   }
 
   @Put(':id')
@@ -56,11 +56,11 @@ export class FamilyGroupController {
     @Param('id') id: string,
     @Body() updateFamilyGroupDto: UpdateFamilyGroupDto,
   ) {
-    return this.familyGroupService.update(+id, updateFamilyGroupDto);
+    return this.familyGroupService.update(id, updateFamilyGroupDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.familyGroupService.remove(+id);
+    return this.familyGroupService.remove(id);
   }
 }
