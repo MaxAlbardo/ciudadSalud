@@ -23,7 +23,7 @@ export class PersonController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.personService.personDNI(id);
+    return this.personService.findOne(+id);
   }
 
   @Get()

@@ -19,10 +19,10 @@ export class PersonService {
     return await this.PersonRepository.find();
   }
 
-  /* async findOne(id: number): Promise<Person> {
+  async findOne(id: number): Promise<Person> {
     const person = await this.PersonRepository.findOne(id);
     return person;
-  } */
+  }
 
   async createOne(createPersonDto: CreatePersonDto) {
     const person = await this.PersonRepository.create(createPersonDto);
@@ -30,7 +30,7 @@ export class PersonService {
   }
 
   async updatePerson(id: string, updatePersonDto: UpdatePersonDto) {
-    const person = await this.personDNI(id);
+    const person = await this.findOne(+id);
     this.PersonRepository.merge(person, updatePersonDto);
     return await this.PersonRepository.save(person);
   }
@@ -41,15 +41,5 @@ export class PersonService {
       throw new BadRequestException('Persona no encontrada');
     }
     return res;
-  }
-
-  async personDNI(dni: string): Promise<Person> {
-    const person = await this.PersonRepository.findOne({
-      where: {
-        dni: dni,
-      },
-    });
-    if (!person) throw new NotFoundException('Persona no encontrada');
-    return person;
   }
 }

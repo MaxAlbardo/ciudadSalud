@@ -21,8 +21,6 @@ export class UserService {
 
   async create(createUserDto: CreateUserDto) {
     const user = await this.userRepo.create(createUserDto);
-    const person = await this.personService.personDNI(createUserDto.personId);
-    user.person = person;
     return this.userRepo.save(user);
   }
 
@@ -38,29 +36,14 @@ export class UserService {
   }
 
   async update(id: number, updateUserDto: UpdateUserDto) {
-    const user = await this.userRepo.findOne({
-      relations: ['person'],
-      where: {
-        person: {
-          dni: id,
-        }
-      }
-    });
-    const person = await this.personService.personDNI(updateUserDto.personId);
+    const user = await this.userRepo.findOne(id);
     this.userRepo.merge(user, updateUserDto);
-    user.person = person;
+    user.person = updateUserDto.personId;
     return await this.userRepo.save(user);
   }
 
   async remove(id: number) {
-    const user = await this.userRepo.findOne({
-      relations: ['person'],
-      where: {
-        person: {
-          dni: id,
-        }
-      }
-    });
+    const user = await this.userRepo.findOne(id);
     if (!user) {
       throw new BadRequestException('Usuario no encontrado');
     }

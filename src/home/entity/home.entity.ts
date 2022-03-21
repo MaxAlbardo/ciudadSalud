@@ -1,4 +1,4 @@
-import { FamilyChief } from 'src/family-chief/entities/family-chief.entity';
+import { FamilyChief } from 'src/family-chief/entities';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import Square from '../enum/home.enum';
 

@@ -16,9 +16,7 @@ export class FamilyChiefService {
 
   async create(createFamilyChiefDto: CreateFamilyChiefDto) {
     const chief = await this.FamilyChiefRepository.create(createFamilyChiefDto);
-    const person = await this.personService.personDNI(createFamilyChiefDto.personId);
-    chief.person = person;
-    return await this.FamilyChiefRepository.save(chief);
+      return await this.FamilyChiefRepository.save(chief);
   }
 
   async findAll(): Promise<FamilyChief[]> {
@@ -30,7 +28,7 @@ export class FamilyChiefService {
       relations: ['person'],
       where: {
         person: {
-          dni: id,
+          id: id,
         },
       },
     });
@@ -40,9 +38,8 @@ export class FamilyChiefService {
 
   async update(id: string, updateFamilyChiefDto: UpdateFamilyChiefDto) {
     const chief = await this.findOne(id);
-    const person = await this.personService.personDNI(updateFamilyChiefDto.personId);
     this.FamilyChiefRepository.merge(chief, updateFamilyChiefDto);
-    chief.person = person;
+    chief.person = updateFamilyChiefDto.personId;
     return await this.FamilyChiefRepository.save(chief);
   }
 
