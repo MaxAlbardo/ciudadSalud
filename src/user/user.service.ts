@@ -7,7 +7,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 
 export interface UserFindByEmail {
-  id?: number;
+  id?: string;
   email?: string;
 }
 
@@ -28,21 +28,21 @@ export class UserService {
     return `This action returns all user`;
   }
 
-  async findOne(id: number) {
+  async findOne(id: string) {
     const user = await this.userRepo.findOne(id);
     if (!user) throw new NotFoundException('Usuario no encontrado');
     const { password, ...rest } = user;
     return rest;
   }
 
-  async update(id: number, updateUserDto: UpdateUserDto) {
+  async update(id: string, updateUserDto: UpdateUserDto) {
     const user = await this.userRepo.findOne(id);
     this.userRepo.merge(user, updateUserDto);
     user.person = updateUserDto.personId;
     return await this.userRepo.save(user);
   }
 
-  async remove(id: number) {
+  async remove(id: string) {
     const user = await this.userRepo.findOne(id);
     if (!user) {
       throw new BadRequestException('Usuario no encontrado');

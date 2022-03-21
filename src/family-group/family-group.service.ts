@@ -29,7 +29,7 @@ export class FamilyGroupService {
     return await this.GroupRepo.find();
   }
 
-  async findGroup(id: number): Promise<FamilyGroup[]> {
+  async findGroup(id: string): Promise<FamilyGroup[]> {
     const group = await this.GroupRepo.find({
       relations: ['chief'],
       where: [
@@ -45,7 +45,7 @@ export class FamilyGroupService {
     return group;
   }
 
-  async findOne(id: number): Promise<FamilyGroup> {
+  async findOne(id: string): Promise<FamilyGroup> {
     const group = await this.GroupRepo.findOne({
       relations: ['person'],
       where: {
@@ -58,7 +58,7 @@ export class FamilyGroupService {
     return group;
   }
 
-  async update(id: number, updateFamilyGroupDto: UpdateFamilyGroupDto) {
+  async update(id: string, updateFamilyGroupDto: UpdateFamilyGroupDto) {
     const group = await this.findOne(id);
     this.GroupRepo.merge(group, updateFamilyGroupDto);
     group.person = updateFamilyGroupDto.personId;
@@ -66,7 +66,7 @@ export class FamilyGroupService {
     return await this.GroupRepo.save(group);
   }
 
-  async remove(id: number) {
+  async remove(id: string) {
     const group = await this.findOne(id);
     const res = await this.GroupRepo.delete(group.id);
     return res;

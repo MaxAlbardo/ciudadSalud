@@ -19,7 +19,7 @@ export class PersonService {
     return await this.PersonRepository.find();
   }
 
-  async findOne(id: number): Promise<Person> {
+  async findOne(id: string): Promise<Person> {
     const person = await this.PersonRepository.findOne(id);
     return person;
   }
@@ -30,12 +30,12 @@ export class PersonService {
   }
 
   async updatePerson(id: string, updatePersonDto: UpdatePersonDto) {
-    const person = await this.findOne(+id);
+    const person = await this.findOne(id);
     this.PersonRepository.merge(person, updatePersonDto);
     return await this.PersonRepository.save(person);
   }
 
-  async remove(id: number) {
+  async remove(id: string) {
     const res = await this.PersonRepository.delete(id);
     if (res.affected == 0) {
       throw new BadRequestException('Persona no encontrada');
