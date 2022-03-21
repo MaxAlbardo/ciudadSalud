@@ -22,10 +22,6 @@ export class FamilyGroupService {
 
   async create(createFamilyGroupDto: CreateFamilyGroupDto) {
     const group = await this.GroupRepo.create(createFamilyGroupDto);
-    const person = await this.personService.personDNI(createFamilyGroupDto.personId);
-    const chief = await this.chiefService.findChief(createFamilyGroupDto.chief);
-    group.person = person;
-    group.chief = chief;
     return await this.GroupRepo.save(group);
   }
 
@@ -40,7 +36,7 @@ export class FamilyGroupService {
         {
           chief: {
             person: {
-              dni: id,
+              id: id,
             },
           },
         },
@@ -54,7 +50,7 @@ export class FamilyGroupService {
       relations: ['person'],
       where: {
         person: {
-          dni: id,
+          id: id,
         },
       },
     });
@@ -64,11 +60,9 @@ export class FamilyGroupService {
 
   async update(id: number, updateFamilyGroupDto: UpdateFamilyGroupDto) {
     const group = await this.findOne(id);
-    const person = await this.personService.personDNI(updateFamilyGroupDto.personId);
-    const chief = await this.chiefService.findChief(updateFamilyGroupDto.chief);
     this.GroupRepo.merge(group, updateFamilyGroupDto);
-    group.person = person;
-    group.chief = chief;
+    group.person = updateFamilyGroupDto.personId;
+    group.chief = updateFamilyGroupDto.chief;
     return await this.GroupRepo.save(group);
   }
 
