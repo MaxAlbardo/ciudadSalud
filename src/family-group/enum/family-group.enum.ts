@@ -1,7 +1,7 @@
 export enum relationShipEnum {
   PADRE = 'Padre',
   MADRE = 'Madre',
-  HIJO = ' Hijo',
+  HIJO = 'Hijo',
   TIO = 'Tio/a',
   PRIMO = 'Primo/a',
   SOBRINO = 'Sobrino/a',
