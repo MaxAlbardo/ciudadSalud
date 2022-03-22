@@ -39,7 +39,7 @@ export class FamilyChiefService {
   async update(id: string, updateFamilyChiefDto: UpdateFamilyChiefDto) {
     const chief = await this.findOne(id);
     this.FamilyChiefRepository.merge(chief, updateFamilyChiefDto);
-    chief.person = updateFamilyChiefDto.personId;
+    chief.person = updateFamilyChiefDto.person;
     return await this.FamilyChiefRepository.save(chief);
   }
 

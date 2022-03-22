@@ -1,15 +1,15 @@
-import { IsEnum, IsString } from 'class-validator';
+import { IsEnum, IsString, IsUUID } from 'class-validator';
 import { FamilyChief } from 'src/family-chief/entities/family-chief.entity';
 import { Person } from 'src/person/entities/person.entity';
 import { relationShipEnum } from '../enum/family-group.enum';
 
 export class CreateFamilyGroupDto {
-  @IsString()
-  personId: Person;
+  @IsUUID()
+  person: Person;
 
   @IsEnum(relationShipEnum)
   relationship: relationShipEnum;
 
-  @IsString()
+  @IsUUID()
   chief: FamilyChief;
 }

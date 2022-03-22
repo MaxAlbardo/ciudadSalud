@@ -61,7 +61,7 @@ export class FamilyGroupService {
   async update(id: string, updateFamilyGroupDto: UpdateFamilyGroupDto) {
     const group = await this.findOne(id);
     this.GroupRepo.merge(group, updateFamilyGroupDto);
-    group.person = updateFamilyGroupDto.personId;
+    group.person = updateFamilyGroupDto.person;
     group.chief = updateFamilyGroupDto.chief;
     return await this.GroupRepo.save(group);
   }

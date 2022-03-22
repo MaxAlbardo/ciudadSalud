@@ -4,8 +4,8 @@ import { Person } from 'src/person/entities/person.entity';
 import { Property } from '../enum/family-chief.enum';
 
 export class CreateFamilyChiefDto {
-  @IsString()
-  personId: Person;
+  @IsUUID()
+  person: Person;
 
   @IsString()
   numberPhone: string;
